@@ -17,6 +17,7 @@ let currentQuestionIndex = 0;
 
 function createDropdown(options) {
   const select = document.createElement("select");
+  select.classList.add("form-select", "mb-3", "d-inline-block");
 
   options.forEach((option) => {
     const opt = document.createElement("option");
@@ -34,6 +35,8 @@ function checkAnswer() {
 
   if (userAnswer === questions[currentQuestionIndex].correct) {
     feedback.textContent = "Correct!";
+    feedback.classList.remove("text-danger");
+    feedback.classList.add("text-success");
     currentQuestionIndex++;
     if (currentQuestionIndex < questions.length) {
       setTimeout(loadQuestion, 1000);
@@ -42,6 +45,8 @@ function checkAnswer() {
     }
   } else {
     feedback.textContent = "Incorrect. Please try again.";
+    feedback.classList.remove("text-success");
+    feedback.classList.add("text-danger");
   }
 }
 
@@ -50,7 +55,7 @@ function loadQuestion() {
   const question = questions[currentQuestionIndex];
 
   const sentence = document.createElement("p");
-  sentence.textContent = question.sentence.replace("___", "");
+  sentence.innerHTML = `<span class="fs-4 fw-bold">${question.sentence.replace("___", "")}</span>`;
   container.appendChild(sentence);
 
   const dropdown = createDropdown(question.options);
@@ -59,6 +64,7 @@ function loadQuestion() {
 
   const button = document.createElement("button");
   button.textContent = "Check Answer";
+  button.classList.add("btn", "btn-primary", "ms-2", "mb-3");
   button.onclick = checkAnswer;
   container.appendChild(button);
 
