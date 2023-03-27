@@ -17,7 +17,7 @@ let currentQuestionIndex = 0;
 
 function createDropdown(options) {
   const select = document.createElement("select");
-  select.classList.add("form-select", "mb-3", "d-inline-block");
+  select.classList.add("form-select", "mb-3", "d-inline");
 
   options.forEach((option) => {
     const opt = document.createElement("option");
