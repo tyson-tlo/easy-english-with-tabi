@@ -54,13 +54,25 @@ function loadQuestion() {
   container.innerHTML = "";
   const question = questions[currentQuestionIndex];
 
+  const sentenceWrapper = document.createElement("div");
+  sentenceWrapper.classList.add("d-flex", "align-items-center", "mb-3");
+
   const sentence = document.createElement("p");
-  sentence.innerHTML = `<span class="fs-4 fw-bold">${question.sentence.replace("___", "")}</span>`;
-  container.appendChild(sentence);
+  sentence.classList.add("fs-4", "fw-bold", "mb-0");
+  const sentenceParts = question.sentence.split("___");
+  sentence.textContent = sentenceParts[0];
+  sentenceWrapper.appendChild(sentence);
 
   const dropdown = createDropdown(question.options);
   dropdown.id = "answer";
-  container.appendChild(dropdown);
+  sentenceWrapper.appendChild(dropdown);
+
+  const sentenceEnd = document.createElement("span");
+  sentenceEnd.classList.add("fs-4", "fw-bold");
+  sentenceEnd.textContent = sentenceParts[1];
+  sentenceWrapper.appendChild(sentenceEnd);
+
+  container.appendChild(sentenceWrapper);
 
   const button = document.createElement("button");
   button.textContent = "Check Answer";
@@ -72,5 +84,6 @@ function loadQuestion() {
   feedback.id = "feedback";
   container.appendChild(feedback);
 }
+
 
 loadQuestion();
